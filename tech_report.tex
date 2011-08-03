@@ -10,6 +10,19 @@
 \documentclass[12pt]{article}
 \usepackage[top=1.0in, bottom=1.0in, left=1.5in, right=1.0in]{geometry}
 %\usepackage{apacite}
+\usepackage{graphicx,color}
+\usepackage{subfigure,subfig}
+
+\graphicspath{{Figures/}}
+
+%\makeatletter
+%\newenvironment{tablehere}
+%{\def\ @captype{table}}
+%{}
+\newenvironment{figurehere}
+{\def\ @captype{figure}}
+{}
+%\makeatother
 
 \begin{document}
 \maketitle
@@ -32,7 +45,22 @@ Due to recent advances in the computational capability for computational fluid d
 
 \subsection{Neighbor Walk}
 
+\begin{figurehere}
+\begin{center}
+\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm, clip, width=0.5\textwidth]{neighbor_walk.png}
+\label{fig:neighbor_walk}
+\end{center}
+\end{figurehere}
+
 \subsection{Advancing Front}
+
+\begin{figurehere}
+\begin{center}
+  \subfigure[Seeding]{\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm, clip, width=0.3\textwidth]{advancing_front_1.png}} 
+  \subfigure[Front Advancement]{\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm, clip, width=0.3\textwidth]{advancing_front_2.png}}
+\label{fig:neighbor_walk}
+\end{center}
+\end{figurehere}
 
 \subsection{Parallel Paradigm}
 
@@ -49,7 +77,23 @@ Due to recent advances in the computational capability for computational fluid d
 
 \begin{thebibliography}{30}
 %\bibliographystyle{apacite}
+\bibitem{alauzet_mehrenberger}
+Alauzet, F. and Mehrenberger, M., "$P^{1}$-Conservative Solution Interpolation on Unstructured Triangular Meshes", {\it International Journal of Numerical Methods in Engineering}, Vol.~84,~(13), pp.1552-1588, 2010.
 
+\bibitem{loehner}
+L\"{o}hner, R., "Robust, Vectorized Search Algorithms for Interpolation on Unstructured Grids", {\it Journal of Computational Physics}, Vol.~118,~(2), pp.380-387, 1995.
+
+\bibitem{mavriplis}
+Mavriplis, D.J., "Multigrid Techniques for Unstructured Meshes", {\it 26th Computational Fluid Dynamics Lecture Series Program of the von Karman Institute (VKI) for Fluid Dynamics}, Rhode-Saint-Gen\`{e}se, Belgium, March, 1995.
+
+\bibitem{loeher_ambrosiano}
+L\"{o}hner, R. and Ambrosiano, J., "A Vectorized Particle Tracer for Unstructured Grids," {\it Journal of Computational Physics}, Vol.~91,~(1), pp.22-31, 1990.
+
+\bibitem{noack}
+Noack, R.W., "Resolution Appropriate Overset Grid Assembly for Structured and Unstructured Grids," {\it Proceedings of the 16th AIAA Computational Fluid Dynamics Converence}, Orlando, FL, June, 2003.
+
+\bibitem{djomehrietal}
+Djomehri, M.J., Biswas, R., Potsdam, M., and Strawn, R.C., "An Analysis of Performance Enchancement Techniques for Overset Grid Applications", {\it International Parallel and Distributed Processing Symposium}, Nice, France, April, 2003.
 
 \end{thebibliography}
 
