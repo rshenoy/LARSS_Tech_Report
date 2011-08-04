@@ -19,9 +19,9 @@
 %\newenvironment{tablehere}
 %{\def\ @captype{table}}
 %{}
-\newenvironment{figurehere}
-{\def\ @captype{figure}}
-{}
+%\newenvironment{figurehere}
+%{\def\ @captype{figure}}
+%{}
 %\makeatother
 
 \begin{document}
@@ -34,7 +34,7 @@ This is the paper's abstract \ldots
 \newpage
 \section{Introduction}
 Due to recent advances in the computational capability for computational fluid dynamics (CFD) simulations, typical problems require parallel computing power involving a large number of processors. Therefore, it becomes imperative for developers to optimize codes for efficiency of any process during a simulation and ensure parallel scalability. Feature or adjoint-based grid adaptation may be utilized in a time-dependent simulation to increase accuracy. Any subsequent grid modifications require a solution transfer of the current time step and those of backplanes from the background grid to the new grid. In order to ensure an accurate solution transfer, trilinear interpolation, which ensures $2^{nd}$ order accuracy is a requisite. A further increase in accuracy may be achieved using a conservative interpolation scheme. A major impediment of an accurate interpolation scheme is the ability to efficiently localize nodes of the new grid to the enclosing elements of the background grid.
-	NASA’s state of the art unstructured code, FUN3D, currently employs an interpolation scheme that does not fulfill the requisite accuracy for a time-accurate simulation. The simple brute force search algorithm for enclosing elements could approach prohibitive limits for high end grids resulting in $O(n^{2})$ searches. Load balancing of the adapted grid will complexify the parallel search algorithm. Therefore, a novel approach is proposed in the present effort involving a sweeping scheme that would robustly expedite localization. An advancing front scheme using neighbor walks to speed up searches is employed from relevant literature. Such a scheme has shown promise on serial applications to minimize the number of searches. In order to overcome special situations such as searches across a geometric boundary in a concave domain, a hierarchical approach is proposed, wherein the localization is initiated at boundary corners and then progressing into boundary edges, surfaces, and finally advancing into the volume.
+	NASA’s state of the art unstructured code, FUN3D, currently employs an interpolation scheme that does not fulfil the requisite accuracy for a time-accurate simulation. The simple brute force search algorithm for enclosing elements could approach prohibitive limits for high end grids resulting in $O(n^{2})$ searches. Load balancing of the adapted grid will complexify the parallel search algorithm. Therefore, a novel approach is proposed in the present effort involving a sweeping scheme that would robustly expedite localization. An advancing front scheme using neighbor walks to speed up searches is employed from relevant literature. Such a scheme has shown promise on serial applications to minimize the number of searches. In order to overcome special situations such as searches across a geometric boundary in a concave domain, a hierarchical approach is proposed, wherein the localization is initiated at boundary corners and then progressing into boundary edges, surfaces, and finally advancing into the volume.
 	Preliminary results have realized the minimization of searches using the serial advancing front scheme. The parallel implementation is expected to scale with processors and result in $O(n)$ searches. Tabulated results will be presented to detail the benefits in both CPU time and number of searches. Test cases involving adaptive static and moving grid systems will be utilized to assess performance improvements. In addition to solution transfers for grid adaptation, the proposed localization scheme should provide benefits to other CFD related concerns such as grid sequencing and for overset grid interpolation.
 	
 % Need to talk about Loehner and Alauzet
@@ -45,22 +45,34 @@ Due to recent advances in the computational capability for computational fluid d
 
 \subsection{Neighbor Walk}
 
-\begin{figurehere}
+\begin{figure}
 \begin{center}
-\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm, clip, width=0.5\textwidth]{neighbor_walk.png}
-\label{fig:neighbor_walk}
+  \subfigure[Localized]{\includegraphics[trim = 2.5cm 2.5cm 2.5cm 2.5cm, clip, width=0.5\textwidth]{bary_1.png}} 
+  \subfigure[One choice]{\includegraphics[trim = 2.5cm 2.5cm 2.5cm 2.5cm, clip, width=0.5\textwidth]{bary_2.png}}
+  \subfigure[Random choice]{\includegraphics[trim = 2.5cm 2.5cm 2.5cm 2.5cm, clip, width=0.5\textwidth]{bary_3.png}}
+\label{fig:barycentric}
+\caption{Neighbor step based on barycentric coordinates (2D representation)}
 \end{center}
-\end{figurehere}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm, clip, width=0.6\textwidth]{neighbor_walk.png}
+\label{fig:neighbor_walk}
+\caption{Neighbor walk algorithm (2D localization).}
+\end{center}
+\end{figure}
 
 \subsection{Advancing Front}
 
-\begin{figurehere}
+\begin{figure}
 \begin{center}
-  \subfigure[Seeding]{\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm, clip, width=0.3\textwidth]{advancing_front_1.png}} 
-  \subfigure[Front Advancement]{\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm, clip, width=0.3\textwidth]{advancing_front_2.png}}
+  \subfigure[Seeding]{\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm, clip, width=0.45\textwidth]{advancing_front_1.png}} 
+  \subfigure[Front Advancement]{\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm, clip, width=0.45\textwidth]{advancing_front_2.png}}
 \label{fig:neighbor_walk}
+\caption{Advancing front algorithm}
 \end{center}
-\end{figurehere}
+\end{figure}
 
 \subsection{Parallel Paradigm}
 
